@@ -4,6 +4,8 @@ export const fetchSinToken = ( endpoint, data, method = 'GET' ) => {
 
   const url = `${ baseUrl }/${ endpoint }`;
 
+  // console.log(url);
+
   if (method === 'GET') {
     return fetch( url );
   } else {
