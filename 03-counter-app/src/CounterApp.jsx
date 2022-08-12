@@ -1,52 +1,33 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 
+export const CounterApp = ({ value }) => {
+    
+    const [ counter, setCounter ] = useState( value );
 
-export const CounterApp = ({value}) => {
-  
-  const [counter, setCounter] = useState(value)
-  
-  const handleApp = () => {
-    // console.log(event)
-    setCounter(counter + 1);
-    // setCounter((c) => c + 1); //c is equal to counter
-  };
+    const handleAdd = () => { 
+        // console.log(event)
+        setCounter( counter + 1 );
+        // setCounter( (c) => c + 1 )
+    }
 
-  const handleSubstract = () => {
-    // console.log(event)
-    setCounter(counter - 1);
-    // setCounter((c) => c + 1); //c is equal to counter
-  };
+    const handleSubstract = () => setCounter( counter - 1 );
+    const handleReset = () => setCounter( value );
 
-  const handleReset = () => {
-    // console.log(event)
-    setCounter(value);
-    // setCounter((c) => c + 1); //c is equal to counter
-  };
+    return (
+        <>
+            <h1>CounterApp</h1>
+            <h2> { counter } </h2>
 
-  return (
-    <>
-      <h1>CounterApp</h1>
-      <h2> { counter } </h2>
-      <button
-        onClick={ handleApp }
-      >
-        +1
-      </button>
-      <button
-        onClick={ handleSubstract }
-      >
-        -1
-      </button>
-      <button
-        onClick={ handleReset }
-      >
-        Reset
-      </button>
-    </>
-  )
+            <button onClick={ handleAdd }> +1 </button>
+            <button onClick={ handleSubstract }> -1 </button>
+            <button aria-label="btn-reset" onClick={ handleReset }> Reset </button>
+        </>
+    );
 }
 
 CounterApp.propTypes = {
-  value: PropTypes.number.isRequired
+    value: PropTypes.number.isRequired
 }
+
+
