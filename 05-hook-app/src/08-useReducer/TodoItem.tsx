@@ -1,9 +1,9 @@
 type Props = {
-  onDeleteTodo: (id:number) => void,
-  onToggleTodo: (id:number) => void,
+  onDeleteTodo(id:number): void,
+  onToggleTodo(id:number): void,
   todo: {
     description: "",
-    id: 1
+    id: number
     done: false | true
   }
 }
@@ -14,6 +14,7 @@ export const TodoItem = ({ todo, onDeleteTodo, onToggleTodo }:Props) => {
       <span
         className={`align-self-center ${ todo.done ? "text-decoration-line-through" : ""}`}
         onClick={ () => onToggleTodo(todo.id) }
+        aria-label="span"
       >
         {todo.description}
       </span>

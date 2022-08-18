@@ -1,15 +1,17 @@
-type State = {
-  [x: string]: any;
-};
+enum ActionTodo {
+  ADD_TODO = "[TODO] Add Todo"
+}
 
-type Action = {
-  type: string,
-  payload: {}
-};
+type StateTodos = [{
+  id: number,
+  done: boolean
+  description: string
+}]
 
-export const todoReducer = ( initialState:State = [], action:Action) => {
+
+export const todoReducer = ( initialState:StateTodos , action:{type:string, payload:{}}) => {
   switch (action.type) {
-    case "[TODO] Add Todo":
+    case ActionTodo.ADD_TODO:
       return [ ...initialState, action.payload ];
 
     case "[TODO] Remove Todo":
@@ -18,9 +20,9 @@ export const todoReducer = ( initialState:State = [], action:Action) => {
     case "[TODO] Toggle Todo":
       return initialState.map(todo => {
 
-        if( todo.id === action.payload ) {
+        if( todo["id"] === action.payload ) {
           return {
-            ...todo,
+            ...initialState,
             done: !todo.done
           }
         }

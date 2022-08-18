@@ -6,33 +6,34 @@ const init = () => {
   return storageItems || [];
 }
 
-export const useTodos = (initialState = []) => {
+export const useTodos = ( initialState = [] ) => {
   
-  const [ todos, dispatchTodos ] = useReducer( todoReducer, initialState, init );
+  const [ todos, dispatch ] = useReducer( todoReducer, initialState, init );
 
+  
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos])
-
-
-  const handleNewTodo = (todo: any) => {
+  
+  
+  const handleNewTodo = (todo:{}) => {
     const action = {
       type: "[TODO] Add Todo",
       payload: todo
     }
 
-    dispatchTodos(action);
+    dispatch(action);
   }
 
   const handleDeleteTodo = (id:number) => {
-    dispatchTodos({
+    dispatch({
       type: "[TODO] Remove Todo",
       payload: id
     })
   }
 
   const handleToggleTodo = ( id:number ) => {
-    dispatchTodos({
+    dispatch({
       type: "[TODO] Toggle Todo",
       payload: id
     })
