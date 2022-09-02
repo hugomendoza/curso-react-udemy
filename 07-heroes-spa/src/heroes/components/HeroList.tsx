@@ -2,7 +2,9 @@ import { PropsHeroes, HeroCard } from "./";
 import { getHeroesByPublisher } from "../helpers";
 import { useMemo } from "react";
 
-export const HeroList = ({ publisher }:PropsHeroes) => {
+type PublisherHeroProps = Omit<PropsHeroes, "id" | "superhero" | "alter_ego" | "first_appearance" | "characters">;
+
+export const HeroList = ({ publisher }:PublisherHeroProps) => {
 
   const heroes = useMemo( () => getHeroesByPublisher( publisher ), [publisher] ) ;
 

@@ -10,6 +10,7 @@ export interface PropsHeroes {
 };
 
 type CharactersHeroProps = Omit<PropsHeroes, "id" | "superhero" | "publisher" | "first_appearance">;
+type CardsHeroProps = Omit<PropsHeroes, "publisher">;
 
 const CharactersByHero = ({alter_ego, characters}:CharactersHeroProps) => {
   return ( alter_ego === characters)
@@ -20,11 +21,10 @@ const CharactersByHero = ({alter_ego, characters}:CharactersHeroProps) => {
 export const HeroCard = ({
   id,
   superhero,
-  publisher,
   alter_ego,
   first_appearance,
   characters,
-}:PropsHeroes) => {
+}:CardsHeroProps) => {
 
   const heroImageUrl = `/assets/heroes/${id}.jpg`;
 
@@ -63,10 +63,9 @@ export const HeroCard = ({
   )
 }
 
-const defaultProps:PropsHeroes = {
+const defaultProps:CardsHeroProps = {
   id: "",
   superhero: "",
-  publisher: "",
   alter_ego: "",
   first_appearance:"",
   characters:"",
