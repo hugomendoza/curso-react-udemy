@@ -2,9 +2,14 @@ import { Box, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIco
 import { TurnedInNot } from "@mui/icons-material";
 
 import { PropsNavBar } from "./types";
+import { useAppSelector } from "../../hooks";
+
 
 
 export const SideBar = ({ drawerWidth }:PropsNavBar) => {
+  
+  const { displayName } = useAppSelector( state => state.auth );
+
   return (
     <Box
       component="nav"
@@ -24,7 +29,7 @@ export const SideBar = ({ drawerWidth }:PropsNavBar) => {
             noWrap
             component="div"
           >
-            Fernando Herrera
+            { displayName }
           </Typography>
         </Toolbar>
 
