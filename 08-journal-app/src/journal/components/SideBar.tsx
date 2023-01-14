@@ -1,14 +1,16 @@
-import { Box, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material";
-import { TurnedInNot } from "@mui/icons-material";
+import { Box, Divider, Drawer, List, Toolbar, Typography } from "@mui/material";
 
-import { PropsNavBar } from "./types";
+import { PropsNavBar, notesProps } from "./types";
 import { useAppSelector } from "../../hooks";
+import SideBarItem from "./SideBarItem";
 
 
 
 export const SideBar = ({ drawerWidth }:PropsNavBar) => {
   
   const { displayName } = useAppSelector( state => state.auth );
+  const { notes } = useAppSelector( state => state.journal );
+  console.log("🚀 ~ file: SideBar.tsx:13 ~ SideBar ~ notes", notes)
 
   return (
     <Box
@@ -37,21 +39,8 @@ export const SideBar = ({ drawerWidth }:PropsNavBar) => {
 
         <List>
           {
-            ["Enero", "Febrero", "Marzo", "Abril"].map( text => (
-              <ListItem
-                key={ text }
-                disablePadding
-              >
-                <ListItemButton>
-                  <ListItemIcon>
-                    <TurnedInNot />
-                  </ListItemIcon>
-                  <Grid>
-                    <ListItemText primary={ text } />
-                    <ListItemText secondary={ "lorem ipsum" } />
-                  </Grid>
-                </ListItemButton>
-              </ListItem>
+            notes.map( (note:notesProps) => (
+              <SideBarItem key={ note.id } {...note}/>
             ))
           }
         </List>

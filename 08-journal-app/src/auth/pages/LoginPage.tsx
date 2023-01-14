@@ -6,16 +6,18 @@ import { Google } from "@mui/icons-material";
 import { AuthLayout } from "../layout/AuthLayout";
 import {  startGoogleSignIn, startLoginWithEmailPassword } from "../../store/auth";
 
+const formData = {
+  email: "",
+  password: ""
+}
+
 export const LoginPage = () => {
 
   const dispatch = useAppDispatch();
   const { status, errorMessage } = useAppSelector(state => state.auth)
   console.log(status)
 
-  const { email, password, onInputChange } = useForm ({
-    email: "",
-    password: ""
-  })
+  const { email, password, onInputChange } = useForm (formData)
 
   const isAuthenticating = useMemo(() => status === "checking", [status])
 
