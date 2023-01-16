@@ -38,6 +38,7 @@ export const LoginPage = () => {
       <form
         onSubmit={ onSubmit }
         className="animate__animated animated__fadeIn"
+        aria-label="submit-form"
       >
         <Grid container>
 
@@ -60,6 +61,9 @@ export const LoginPage = () => {
               placeholder="Contraseña"
               fullWidth
               name="password"
+              inputProps={{
+                "data-testid": "password"
+              }}
               value={ password }
               onChange={ onInputChange }
             />
@@ -95,6 +99,7 @@ export const LoginPage = () => {
                 disabled= { isAuthenticating }
                 variant="contained"
                 fullWidth
+                aria-label="google-btn"
                 onClick={ onGoogleSignIn }
               >
                 <Google />
