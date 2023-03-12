@@ -9,7 +9,6 @@ export const FabAddNew = () => {
   const onClickNew = () => {
     openDateModal();
     setActiveEvent({
-      _id: new Date().getTime(),
       title: "",
       notes: "",
       start: new Date(),
