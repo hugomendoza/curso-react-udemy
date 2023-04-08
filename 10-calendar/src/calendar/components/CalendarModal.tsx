@@ -12,6 +12,7 @@ import "sweetalert2/dist/sweetalert2.min.css";
 
 import { useCalendarStore, useUiStore } from '../../hooks/';
 import { getEnvVariables } from '../../helpers';
+import { Event } from '../types/types';
 
 registerLocale("es", es)
 
@@ -26,6 +27,7 @@ const customStyles = {
   },
 };
 
+type EventProps = Omit<Event, "bgColor" | "user" | "id">;
 
 if( getEnvVariables().VITE_MODE !== "test" ) {
   Modal.setAppElement('#root');
@@ -36,8 +38,8 @@ export const CalendarModal = () => {
   const { isDateModalOpen, closeDateModal } = useUiStore();
   const { activeEvent, startSavingEvent } = useCalendarStore();
 
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [formValues, setFormValues] = useState({
+  const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
+  const [formValues, setFormValues] = useState<EventProps>({
     title: "",
     notes: "",
     start: new Date(),
@@ -55,19 +57,19 @@ export const CalendarModal = () => {
 
   useEffect(() => {
     if( activeEvent !== null ) {
-      setFormValues({ ...activeEvent });
+      setFormValues({ ...(activeEvent) as EventProps });
     }
   }, [ activeEvent ])
   
 
-  const onInputChanged = ({ target }) =>  {
+  const onInputChanged = ({ target }:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>):void =>  {
     setFormValues({
       ...formValues,
       [target.name]: target.value
     })
   }
 
-  const onDateChange = ( event, changing ) => {
+  const onDateChange = ( event: Date | null, changing: string ) => {
     setFormValues({
       ...formValues,
       [changing]: event
@@ -78,7 +80,7 @@ export const CalendarModal = () => {
     closeDateModal()
   }
 
-  const onSubmit = async( event ) => {
+  const onSubmit = async( event:React.ChangeEvent<HTMLFormElement> ):Promise<void> => {
     event.preventDefault();
     setFormSubmitted(true);
 
@@ -156,11 +158,10 @@ export const CalendarModal = () => {
           </div>
 
           <div className="form-group mb-2">
-              <textarea 
-                  type="text" 
+              <textarea
                   className="form-control"
                   placeholder="Notas"
-                  rows="5"
+                  rows={5}
                   name="notes"
                   value={ formValues.notes }
                   onChange={ onInputChanged }

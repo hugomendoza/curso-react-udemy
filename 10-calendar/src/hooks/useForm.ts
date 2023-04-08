@@ -1,19 +1,18 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 
-interface initialObject {
-  [key: string]: any
-}
-
-export const useForm = (initialForm:initialObject = {}) => {
+export const useForm =<T extends Object> (initialForm:T) => {
 
   const [formState, setFormState] = useState(initialForm)
 
-  const onInputChange = ({ target }:any) => {
-    const { name, value } = target
+  const onInputChange = ({ target }:ChangeEvent<HTMLInputElement>) => {
+
+    const { name, value } = target;
+
     setFormState({
       ...formState,
       [name]: value
     })
+    
   }
 
   const onResetForm = () => {

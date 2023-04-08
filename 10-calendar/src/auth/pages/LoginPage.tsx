@@ -3,17 +3,29 @@ import Swal from 'sweetalert2';
 import { useAuthStore, useForm } from '../../hooks';
 import './LoginPage.css';
 
+interface LoginFormFieldsProps {
+    loginEmail:string;
+    loginPassword:string;
+}
+
+interface RegisterFormFieldsProps {
+    registerName:string;
+    registerEmail:string;
+    registerPassword:string;
+    registerPassword2:string;
+}
+
 const loginFormFields = {
     loginEmail: "",
     loginPassword: ""
-}
+} as LoginFormFieldsProps
 
 const registerFormFields = {
     registerName: "",
     registerEmail: "",
     registerPassword: "",
     registerPassword2: ""
-}
+} as RegisterFormFieldsProps
 
 export const LoginPage = () => {
 
@@ -33,12 +45,12 @@ export const LoginPage = () => {
         onInputChange:onRegisterInputChange
     } = useForm( registerFormFields )
 
-    const loginSubmit = (event) => {
+    const loginSubmit = (event:React.ChangeEvent<HTMLFormElement>):void => {
         event.preventDefault();
         startLogin({ email:loginEmail, password:loginPassword });
     }
 
-    const  registerSubmit = (event) => {
+    const  registerSubmit = (event:React.ChangeEvent<HTMLFormElement>):void => {
         event.preventDefault();
         if ( registerPassword !== registerPassword2 ) {
             Swal.fire("Error en registro", "Contraseñas no coinciden", "error");
